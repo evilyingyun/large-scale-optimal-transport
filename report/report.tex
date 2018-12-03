@@ -1,0 +1,44 @@
+%! program = pdflatex
+
+\documentclass[11pt,a4paper]{scrartcl} % for a short document
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}   
+\geometry{a4paper}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\usepackage{biblatex}
+\addbibresource{./biblio.bib}
+
+%\usepackage[parfill]{parskip}
+
+\title{Stochastic optimization for large scale optimal transport}
+\author{Hugo Cisneros}
+\date{\today} % Delete this line to display the current date
+\subtitle{Project report}
+%%% BEGIN DOCUMENT
+\begin{document}
+
+
+
+\maketitle
+\abstract{
+This report will study the matter of applying stochastic optimization techniques to solve optimal transport problems in the discrete and semi-discrete settings. In the discrete setting, the standard solver of the regularized OT problem is the Sinkhorn-Knopp algorithm which has a general computational complexity of $O(n^2)$. The problem is notoriously hard to solve, and the complexity of the Sinkhorn-Knopp algorithm is too high for a very large scale setting. Stochastic algorithms can be used to cope with that problem and compute solutions of the regularized OT problem in linear time.}
+\clearpage
+\tableofcontents
+
+\clearpage
+
+\include{intro}
+
+\section{Stochastic optimization for large scale optimal transport}
+\subsection{Discrete Optimal Transport}
+
+\subsection{Semi-discrete Optimal Transport}
+\section{Conclusion and Perspectives}
+
+\printbibliography[title={References}]
+\end{document}

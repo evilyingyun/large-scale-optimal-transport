@@ -6,4 +6,8 @@ __pycache__/
 *.gz
 *.toc
 *.gitignore
-
+*.bbl
+*.bcf
+*.blg
+*.out
+*.xml

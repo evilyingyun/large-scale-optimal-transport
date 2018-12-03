@@ -1,0 +1,36 @@
+\section{Introduction}
+Optimal Transport (OT) is well known for its many applications in various domains. It has recently had major successes in Computer Vision or Natural Language Processing 
+
+\subsection{Optimal transport : problem formulations}
+ \cite{monge1781}
+\subsubsection{Entropic regularization of OT}
+We consider two measures $\mu \in \mathcal{M}_+^1(\mathcal{X})$ and $\nu \in \mathcal{M}_+^1(\mathcal{Y})$ defined on metric spaces $\mathcal{X}$ and $\mathcal{Y}$. The cost of moving a unit of mass from $x\in \mathcal{X}$ and  $y\in \mathcal{Y}$ is defined by the continuous function $c \in \mathcal{C}(\mathcal{X}, \mathcal{Y})$, and written $c(x, y)$.
+We also define the set of joint probability measures on $\mathcal{X}\times\mathcal{Y}$
+\[
+\Pi(\mu, \nu) \triangleq \{\pi \in \mathcal{M}_+(\mathcal{X}\times \mathcal{Y}) ; \forall (A, B) \subset \mathcal{X}\times \mathcal{Y}, \pi(A, \mathcal{Y}) = \mu(A), \pi(\mathcal{X}, B) = \nu(B)\}
+\]
+The entropic regularized version of the OT problem \cite{cuturi_sinkhorn_2013} can be written as a single convex optimization problem in the following form: $\forall (\mu, \nu)  \in \mathcal{M}_+^1(\mathcal{X})\times\mathcal{M}_+^1(\mathcal{Y}),$
+\[\tag{$\mathcal{P}_\varepsilon$}
+\label{eq:primal}
+W_\varepsilon(\mu, \nu) \triangleq \min_{\pi\in \Pi(\mu, \nu)} \int_{\mathcal{X}, \mathcal{Y}} c(x, y)\text{d} \pi(x, y) + \varepsilon\text{KL}(\pi|| \mu \otimes \nu)
+\]
+With $\text{KL}(\pi|| \mu \otimes \nu)$ corresponding to the Kullback-Leibler divergence between joint probabilities $\pi$ and  $\mu \otimes \nu$, defined by $\text{KL}(\pi|| \xi) \triangleq  \int_{\mathcal{X}, \mathcal{Y}} \left(\log(\frac{d\pi}{d\xi}(x, y) - 1\right)d\xi(x, y)$.
+
+For $\varepsilon > 0$, the above problem is strongly convex. \eqref{eq:primal} is usually called the primal form of the regularized OT problem, by opposition to the dual and semi-dual form that will be studied further.
+
+\paragraph{Sinkhorn for discrete OT}
+In the discrete setting $\mu = \sum_i^n\delta_{x_i}\bm{\mu}_i$ and $\nu = \sum_j^m\delta_{x_j}\bm{\nu}_j$, the sums are finite and the cost is $\mathbf{C} \in \mathbb{R}^{n\times m}$. The structure of the KL divergence gives the optimal solution $\mathbf{P}_\varepsilon \in \Pi(\mu, \nu)$ a convenient structure that makes it possible solving the problem using Sinkhorn's algorithm \cite{cuturi_sinkhorn_2013}. There indeed exist two scaling variables $\mathbf{u}_\varepsilon \in \mathbb{R}^n$ and $\mathbf{v}_\varepsilon \in \mathbb{R}^m$ such that
+\[
+\mathbf{P}_\varepsilon = \text{diag}(\mathbf{u}_\varepsilon)\mathbf{K}_\varepsilon\text{diag}(\mathbf{v}_\varepsilon)
+\]
+Where $(\mathbf{K}_\varepsilon)_{i,j} = \exp(-\mathbf{C}_{i,j}/\varepsilon)$ \cite{peyre_computational_2018}. Those scaling variables can be computed iteratively with the following update at step $\ell$,
+\begin{gather}
+\mathbf{u}^{\ell+1}_\varepsilon \triangleq \dfrac{\mu}{\mathbf{K}_\varepsilon\mathbf{v}^\ell_\varepsilon} \hspace{10pt}  \text{and} \hspace{10pt}\mathbf{v}^{\ell+1}_\varepsilon \triangleq \dfrac{\nu}{\mathbf{K}^T_\varepsilon\mathbf{u}^{\ell+1}_\varepsilon}
+\end{gather}
+Because each step of the algorithm relies on a vector-matrix computation, the overall complexity of the algorithm is $O(nm)$ in the most general configuration.
+
+The algorithm can be used in a large scale setting by using hardware (multiple Wasserstein distances can be computed in parallel on a GPU \cite{slomp2011gpu}) and in some other specific cases where the kernel $\mathbf{K}$ is separable or can be expressed as a convolution \cite{peyre_computational_2018}. In the general case however, the complexity of Sinkhorn's algorithm can be prohibitively large for a large scale problem.
+
+\subsubsection{Dual formulation of OT}
+
+\subsubsection{Semi-dual formulation of OT}
