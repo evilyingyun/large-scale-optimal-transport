@@ -8,16 +8,24 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{width=.8\linewidth}
 
-\usepackage{biblatex}
+\usepackage{subcaption}
+\usepackage{algpseudocode}
+\usepackage{bm}
+\usepackage[bb=boondox]{mathalfa}
+
+\usepackage[url=false]{biblatex}
 \addbibresource{./biblio.bib}
 
 %\usepackage[parfill]{parskip}
 
 \title{Stochastic optimization for large scale optimal transport}
 \author{Hugo Cisneros}
-\date{\today} % Delete this line to display the current date
+\date{January 7, 2019}
 \subtitle{Project report}
 %%% BEGIN DOCUMENT
 \begin{document}
@@ -26,7 +34,13 @@
 
 \maketitle
 \abstract{
-This report will study the matter of applying stochastic optimization techniques to solve optimal transport problems in the discrete and semi-discrete settings. In the discrete setting, the standard solver of the regularized OT problem is the Sinkhorn-Knopp algorithm which has a general computational complexity of $O(n^2)$. The problem is notoriously hard to solve, and the complexity of the Sinkhorn-Knopp algorithm is too high for a very large scale setting. Stochastic algorithms can be used to cope with that problem and compute solutions of the regularized OT problem in linear time.}
+This report will study the matter of applying stochastic optimization techniques to solve optimal transport problems in the discrete and semi-discrete settings. 
+
+In the discrete setting, the standard solver of the regularized OT problem is the Sinkhorn-Knopp algorithm which has a general computational complexity of $O(n^2)$. The problem is notoriously hard to solve, and the complexity of the Sinkhorn-Knopp algorithm is too high for a very large scale setting. Stochastic algorithms can be used to cope with that limitation and compute solutions of the regularized OT problem with a computational complexity of $O(n)$.
+
+In the semi-discrete setting, some solvers exist but can only be applied to specific subproblems in low dimension and with simple cost functions. The stochastic gradient algorithm can be used for finding the optimal solution of such problems in the general form.
+
+To explore the properties of stochastic optimization for OT, we will present three experiments: a benchmark of stochastic algorithms on synthetic data and an image retreival task that will provide some numerical results to illustrate the use of gradient aggregation algorithms (namely SAG and SAGA) for solving dicrete optimal transport problems, and a socio-economic data analysis that will provide insights into the scope of stochastic gradient algorithms for solving semi-discrete OT problems.}
 \clearpage
 \tableofcontents
 
@@ -34,11 +48,9 @@ This report will study the matter of applying stochastic optimization techniques
 
 \include{intro}
 
-\section{Stochastic optimization for large scale optimal transport}
-\subsection{Discrete Optimal Transport}
+\include{numerical-study}
 
-\subsection{Semi-discrete Optimal Transport}
-\section{Conclusion and Perspectives}
+\include{conclusion}
 
 \printbibliography[title={References}]
 \end{document}

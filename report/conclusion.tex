@@ -1,0 +1,10 @@
+\section{Conclusion and Perspectives}
+Stochastic optimization is a very promising tool for optimal transport and its application to very large scale settings. 
+
+We have presented a numerical analysis of SAG and SAGA for solving discrete OT problems on synthetic and real data for image retrieval. It has shown that these methods can sometimes outperform Sinkhorn's algorithm, but with a strong dependency on the parameters of the problems. We have also studied the stochastic gradient algorithm for semi-discrete optimal transport and presented a potential application of this method. 
+
+Both \cite{genevay_stochastic_2016} and experiments in this paper show that in the discrete setting, stochastic algorithms can sometimes outperform Sinkhorn's algorithm and therefore become an essential way of solving optimal transport problems. However, although \cite{genevay_stochastic_2016}'s word vectors example showed very consistent and significant improvement over Sinkhorn, it was not always observed in our experiments and seems to depend heavily on the choice of step size for the SAG and SAGA algorithms that were used to achieve this result. A more thorough exploration of the convergence properties on several other problems could be needed to have a better understanding of the influence of the size of the problem, structure of the input and output measures and algorithm's parameters.
+
+In the semi-discrete setting, the stochastic gradient algorithm provides a general solver that can be applied to any type of cost function and is also scalable. We have presented the convergence properties of this algorithm on a real-world dataset that highlights some possible applications of semi-discrete optimal transport.
+
+To achieve an in-depth evaluation of the stochastic methods for optimal transport, one would need to work in very large scale setups, where the $O(n^2)$ computational complexity prevents from using Sinkhorn's algorithm at all. This would allow to really evaluate how practical stochastic optimization algorithms for optimal transport are. 
