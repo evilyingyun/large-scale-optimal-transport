@@ -1,4 +1,5 @@
 *.csv
+.vscode/
 .ipynb_checkpoints/
 __pycache__/
 *.aux
@@ -11,3 +12,7 @@ __pycache__/
 *.blg
 *.out
 *.xml
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
